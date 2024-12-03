@@ -12,10 +12,7 @@ class RootRoute extends Route
 
     public function handleGet() : array
     {
-        $jwt = JWT::getInstance(3600, ['user' => 'admin']);
-        Authenticator::setSecureCookie('auth_token', $jwt->toString(), 3600);
-
-        $authenticated = Authenticator::authenticate();
+        $authenticated = Authenticator::authenticate(true);
 
         $response = array();
         $response['status'] = 200;
