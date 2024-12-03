@@ -12,12 +12,12 @@ class RootRoute extends Route
 
     public function handleGet() : array
     {
-        $authenticated = Authenticator::authenticate(true);
+        $getterArgs = $this->getApp()->getArguments();
 
         $response = array();
         $response['status'] = 200;
         $response['message'] = 'Welcome to the JoPi-API';
-        $response['authenticated'] = $authenticated;
+        $response['authenticated'] = $getterArgs['auth'] ?? false;
         return $response;
     }
 

@@ -22,6 +22,7 @@ class App
     {
         $uri = $_SERVER['REQUEST_URI'];
         $uri = str_replace($this->root_path, '', $uri);
+        $uri = explode('?', $uri)[0];
         $uri = explode('/', $uri)[0];
         return "/" . $uri;
     }
@@ -37,13 +38,9 @@ class App
         return json_decode($body, true);
     }
 
-    public function getRouteArgs() : array
+    public function getArguments() : array
     {
-        $uri = $_SERVER['REQUEST_URI'];
-        $uri = str_replace($this->root_path, '', $uri);
-        $uri = explode('/', $uri);
-        array_shift($uri);
-        return $uri;
+        return $_GET;
     }
 
     public function run()

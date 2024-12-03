@@ -42,6 +42,12 @@ abstract class Route
         $response['message'] = 'Method not allowed';
         return $response;
     }
+
+    // Returns the app
+    public function getApp() : App
+    {
+        return $this->app;
+    }
 }
 
 ?>
