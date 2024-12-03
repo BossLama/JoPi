@@ -1,10 +1,8 @@
 # The JoPI Framework 
 ## Getting started
 
-Create a index.php file in the public folder
+Erstelle eine index.php im /public/ Ordner mit folgendem Code:
 ```php
-<?php
-
 declare(strict_types=1);
 error_reporting(E_ALL);
 header('Content-Type: application/json');
@@ -29,16 +27,20 @@ set_exception_handler(function ($e) {
     echo json_encode($reponse);
 });
 
-// =================================== A P P L I C A T I O N ===================================
-
 Logger::clearLogFile();
 Logger::setLogLevel(4);
 
-$app = new App('/projects/JoPi/public/');
-
-$app->setRouteHandler("/", new \Custom\Routes\RootRoute($app));
-
-$app->run();
-?>
+// =================================== A P P L I C A T I O N ===================================
 ```
+
+Ändere das Logging-Verhalten entsprechend deiner Wünsche. Der Befehl ```Logger::clearLogFile()``` 
+löscht den Log bei jeder neuen Anfrage. Dies erleichtert das Testen.
+
+Über ```Logger::setLogLevel(4)``` kann ausgewählt werden, welche Logs erfasst werden.
+- 0     |       Keine Logs
+- 1     |       Fehler werden geloggt
+- 2     |       Fehler & Warnungen werden geloggt
+- 3     |       Fehler, Warnungen & Infos werden geloggt
+- 4     |       Fehler, Warnungen, Infos & Debugs werden geloggt
+
 

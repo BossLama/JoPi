@@ -24,10 +24,10 @@ set_exception_handler(function ($e) {
     echo json_encode($reponse);
 });
 
-// =================================== A P P L I C A T I O N ===================================
-
 Logger::clearLogFile();
 Logger::setLogLevel(4);
+
+// =================================== A P P L I C A T I O N ===================================
 
 $app = new App('/projects/JoPi/public/');
 
