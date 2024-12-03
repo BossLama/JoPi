@@ -2,16 +2,17 @@
 
 namespace Custom\Routes;
 use JoPi\App\Route;
+use JoPi\App\SecretHandler;
 
 class RootRoute extends Route
 {
 
     public function handleGet() : array
     {
-        $reponse = array();
-        $reponse['status'] = 200;
-        $reponse['message'] = 'Welcome to the JoPi-API';
-        return $reponse;
+        $response = array();
+        $response['status'] = 200;
+        $response['message'] = 'Welcome to the JoPi-API';
+        return $response;
     }
 
     public function handlePost() : array

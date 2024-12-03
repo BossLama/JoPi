@@ -22,6 +22,11 @@ class SecretHandler
         return "";
     }
 
+    // Returns a new instance
+    public static function getInstance() : SecretHandler
+    {
+        return new SecretHandler();
+    }
 }
 
 ?>
