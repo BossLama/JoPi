@@ -44,3 +44,19 @@ löscht den Log bei jeder neuen Anfrage. Dies erleichtert das Testen.
 - 4     |       Fehler, Warnungen, Infos & Debugs werden geloggt
 
 
+### Grundstruktur
+Unterhalb des Application-Kommentars kann nun der eigene Code geschrieben werden.
+Die API wird mit folgendem Grundgerüst aufgebaut:
+
+```php
+$app = new App('/path/to/public/');
+$app->setRouteHandler("/", new \Custom\Routes\RootRoute($app));
+$app->run();
+```
+
+Der App wird ein Parameter als String übergeben. Dieser beschreibt, wo sich der public Ordner befindet. Falls kein Parameter
+übergeben wird, wird /public/ verwendet.
+Über ```setRouteHandler()``` kann eine Route festgelegt werden.
+Zuletzt wird die App gestartet mit ```$app->run();```
+
+

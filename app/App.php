@@ -7,7 +7,7 @@ class App
     private string $root_path;
     private array  $routes;
 
-    public function __construct(string $root_path = "")
+    public function __construct(string $root_path = "public/")
     {
         $this->root_path = $root_path;
         $this->routes = array();
