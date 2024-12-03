@@ -22,6 +22,13 @@ class SecretHandler
         return "";
     }
 
+    // Create a new secret
+    public function createSecret(string $secret_name, string $secret) : bool
+    {
+        $secret_file = $this->secret_folder . $secret_name . ".key";
+        return file_put_contents($secret_file, $secret) !== false;
+    }
+
     // Returns a new instance
     public static function getInstance() : SecretHandler
     {
