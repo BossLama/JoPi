@@ -1,0 +1,21 @@
+{
+    "name": "riemer/jo-pi",
+    "autoload": {
+        "psr-4": {
+            "JoPi\\App\\": "app/",
+            "JoPi\\App\\Entities\\": "app/entities/",
+
+            "Custom\\Routes\\": "src/routes/",
+            "Custom\\Controllers\\": "src/controllers/",
+            "Custom\\Entities\\": "src/entities/",
+            "Custom\\Middelware\\": "src/middleware/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jonas",
+            "email": "riemer.jonas@outlook.de"
+        }
+    ],
+    "require": {}
+}
