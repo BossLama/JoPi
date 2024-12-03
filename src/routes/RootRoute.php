@@ -8,14 +8,9 @@ class RootRoute extends Route
 
     public function handleGet() : array
     {
-        $jwt = new \JoPi\App\Entities\JWT(3600, "my-user-id");
-        $jwt->sign();
-        $token = $jwt->toString();
-
         $reponse = array();
         $reponse['status'] = 200;
-        $reponse['message'] = 'Welcome to the API';
-        $reponse['token'] = $token;
+        $reponse['message'] = 'Welcome to the JoPi-API';
         return $reponse;
     }
 
