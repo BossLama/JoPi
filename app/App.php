@@ -1,44 +1,44 @@
 <?php
 
 namespace JoPi\App;
+
 class App
 {
-
     private string $root_path;
     private array  $routes;
 
     public function __construct(string $root_path = "public/")
     {
         $this->root_path = $root_path;
-        $this->routes = array();
+        $this->routes = [];
     }
 
-    public function setRouteHandler(string $route, Route $routeHandler)
+    public function setRouteHandler(string $routePattern, Route $routeHandler)
     {
-        $this->routes[$route] = $routeHandler;
+        $regexPattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $routePattern);
+        $this->routes[$regexPattern] = $routeHandler;
     }
 
-    public function getRequestedRoute() : string
+    public function getRequestedRoute(): string
     {
         $uri = $_SERVER['REQUEST_URI'];
         $uri = str_replace($this->root_path, '', $uri);
         $uri = explode('?', $uri)[0];
-        $uri = explode('/', $uri)[0];
-        return "/" . $uri;
+        return "/" . trim($uri, "/");
     }
 
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public function getBody() : array
+    public function getBody(): array
     {
         $body = file_get_contents('php://input');
-        return json_decode($body, true);
+        return json_decode($body, true) ?? [];
     }
 
-    public function getArguments() : array
+    public function getArguments(): array
     {
         return $_GET;
     }
@@ -46,25 +46,28 @@ class App
     public function run()
     {
         Logger::logDebug("App running with root at '" . $this->root_path . "'");
-        $reponse = null;
         $requestedRoute = $this->getRequestedRoute();
+        $response = null;
 
-        if(isset($this->routes[$requestedRoute]))
-        {
-            Logger::logDebug("Calling route handler for route '" . $requestedRoute. "'");
-            $routeHandler = $this->routes[$requestedRoute];
-            $reponse = $routeHandler->handleRequest();
-        }
-        else
-        {
-            Logger::logWarning("No route handler found for '" . $requestedRoute . "'");
-            $reponse = array();
-            $reponse['status'] = 404;
-            $reponse['message'] = 'Route not found';
+        foreach ($this->routes as $routePattern => $routeHandler) {
+            if (preg_match("#^" . $routePattern . "$#", $requestedRoute, $matches)) {
+                Logger::logDebug("Calling route handler for route '" . $requestedRoute . "'");
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+
+                $response = $routeHandler->handleRequest($params);
+                echo json_encode($response);
+                return;
+            }
         }
 
-        echo json_encode($reponse);
+        Logger::logWarning("No route handler found for '" . $requestedRoute . "'");
+        $response = [
+            'status' => 404,
+            'message' => 'Route not found'
+        ];
+        echo json_encode($response);
     }
 }
+
 
 ?>

@@ -17,7 +17,7 @@ class RootRoute extends Route
         $response = array();
         $response['status'] = 200;
         $response['message'] = 'Welcome to the JoPi-API';
-        $response['authenticated'] = $getterArgs['auth'] ?? false;
+        $response['variables'] = $this->getVariables();
         return $response;
     }
 
