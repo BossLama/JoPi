@@ -13,7 +13,7 @@ abstract class Route
     }
 
     // Handles the request and redirect it to the correct method
-    public function handleRequest(?array $variables) : array
+    public function handleRequest(array $variables = []) : array
     {
         $this->variables = $variables;
         switch($this->app->getMethod())
