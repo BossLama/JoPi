@@ -3,6 +3,7 @@
 namespace Custom\Routes;
 
 use JoPi\App\Authenticator;
+use JoPi\App\DatabaseConnector;
 use JoPi\App\Entities\JWT;
 use JoPi\App\Route;
 use JoPi\App\SecretHandler;
@@ -12,6 +13,10 @@ class ExampleRoute extends Route
 
     public function handleGet() : array
     {
+
+        $databaseConnector = new DatabaseConnector(null);
+        $connection = $databaseConnector->getConnection();
+
         $response = array();
         $response['status'] = 200;
         $response['message'] = 'This is the example endpoint';
