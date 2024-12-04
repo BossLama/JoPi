@@ -31,7 +31,8 @@ Logger::setLogLevel(4);
 
 $app = new App('/projects/JoPi/public/');
 
-$app->setRouteHandler("/", new \Custom\Routes\RootRoute($app));
+$app->setRouteHandler("/user/{ID}", new \Custom\Routes\RootRoute($app));
+$app->setRouteHandler("/user/{ID}/tickets", new \Custom\Routes\ExampleRoute($app));
 
 $app->run();
 ?>
